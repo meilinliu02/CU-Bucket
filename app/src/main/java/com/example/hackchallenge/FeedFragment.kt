@@ -42,7 +42,6 @@ class FeedFragment : Fragment() {
             FeedPost(
                 author = "Martha",
                 username = "martha123",
-                location = "Ho Plaza",
                 description = "party",
                 numLikes = "4",
                 numSaves = "2"
@@ -50,7 +49,6 @@ class FeedFragment : Fragment() {
             FeedPost(
                 author = "ben",
                 username = "ben_is_awesome",
-                location = "tbd",
                 description = "I am looking to go on a hike in the area with a couple of people",
                 numLikes = "2",
                 numSaves = "4"
@@ -61,10 +59,9 @@ class FeedFragment : Fragment() {
 
         val feedPosts : RecyclerView = view.findViewById(R.id.feed)
 
-
         feedPosts.adapter = feedAdapter
 
-        val layoutManager = LinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(context)
         feedPosts.layoutManager = layoutManager
 
 

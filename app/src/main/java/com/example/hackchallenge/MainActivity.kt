@@ -12,6 +12,8 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
+        supportFragmentManager.beginTransaction().add(R.id.fragmentContainerView, FeedFragment.newInstance())
+
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home_item -> {

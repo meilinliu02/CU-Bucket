@@ -1,5 +1,6 @@
 package com.example.hackchallenge
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,9 @@ class FeedAdapter(private val feed : List<FeedPost>) :
     class ViewHolder internal constructor(textView : View) : RecyclerView.ViewHolder(textView){
         val feedAuthor : TextView = textView.findViewById(R.id.name)
         val feedUsername : TextView = textView.findViewById(R.id.username)
-//        val feedImage : ImageView = textView.findViewById(R.id.feedImage)
         val feedDesc : TextView = textView.findViewById(R.id.description)
         val feedLikes : TextView = textView.findViewById(R.id.likes)
         val feedSaves : TextView = textView.findViewById(R.id.saves)
-//        val feedProfilePic : ImageView = textView.findViewById(R.id.profilePic)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
