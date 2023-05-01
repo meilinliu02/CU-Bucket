@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,6 +20,8 @@ class FeedAdapter(private val feed : List<FeedPost>) :
         var feedSaves : TextView = textView.findViewById(R.id.saves)
         val likeButton : ImageButton = textView.findViewById(R.id.likeButton)
         val saveButton : ImageButton = textView.findViewById(R.id.saveButton)
+        val profilePic : ImageView = textView.findViewById(R.id.profilePic)
+        val postPic : ImageView = textView.findViewById(R.id.feedImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,13 +37,15 @@ class FeedAdapter(private val feed : List<FeedPost>) :
         holder.feedLikes.text = feedPost.numLikes
         holder.feedSaves.text = feedPost.numSaves
         holder.feedUsername.text = feedPost.username
+        holder.profilePic.setImageResource(feedPost.profileImage)
+        holder.postPic.setImageResource(feedPost.postImage)
         holder.likeButton.setOnClickListener{
             holder.feedLikes.text = (holder.feedLikes.text.toString().toInt() + 1).toString()
-            holder.likeButton.setImageResource(androidx.appcompat.R.drawable.abc_star_black_48dp)
+            holder.likeButton.setImageResource(R.drawable.full_star)
         }
         holder.saveButton.setOnClickListener{
             holder.feedSaves.text = (holder.feedSaves.text.toString().toInt() + 1).toString()
-            holder.saveButton.setImageResource(androidx.appcompat.R.drawable.abc_star_black_48dp)
+            holder.saveButton.setImageResource(R.drawable.full_star)
         }
     }
 

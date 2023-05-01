@@ -94,7 +94,7 @@
             app:layout_constraintHorizontal_bias="0.14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+            app:srcCompat="@drawable/blank_star" />
 
         <ImageButton
             android:id="@+id/saveButton"
@@ -105,7 +105,7 @@
             app:layout_constraintHorizontal_bias="0.35"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/description"
-            app:srcCompat="@android:drawable/btn_star_big_off" />
+            app:srcCompat="@drawable/blank_star" />
 
         <TextView
             android:id="@+id/likes"

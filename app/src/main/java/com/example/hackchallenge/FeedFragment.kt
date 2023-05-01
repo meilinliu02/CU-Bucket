@@ -44,14 +44,18 @@ class FeedFragment : Fragment() {
                 username = "martha123",
                 description = "party",
                 numLikes = "4",
-                numSaves = "2"
+                numSaves = "2",
+                profileImage = R.drawable.squid,
+                postImage = R.drawable.squid
             ),
             FeedPost(
                 author = "ben",
                 username = "ben_is_awesome",
                 description = "I am looking to go on a hike in the area with a couple of people",
                 numLikes = "2",
-                numSaves = "4"
+                numSaves = "4",
+                profileImage = R.drawable.squid,
+                postImage = R.drawable.squid
             )
         )
 

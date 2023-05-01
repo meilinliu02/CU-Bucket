@@ -7,5 +7,7 @@ data class FeedPost(
     val username : String,
     val description : String,
     val numLikes : String,
-    val numSaves : String
+    val numSaves : String,
+    val profileImage : Int,
+    val postImage : Int
 )
