@@ -9,7 +9,7 @@
         android:id="@+id/add_item"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_add_circle_outline_24"
-        android:title="Favorites" />
+        android:title="New Post" />
     <item
         android:id="@+id/bucket_item"
         android:enabled="true"
