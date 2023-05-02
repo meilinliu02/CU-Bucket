@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_item"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_outline_24"
+        android:title="Home" />
+    <item
+        android:id="@+id/add_item"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_add_circle_outline_24"
+        android:title="New Post" />
+    <item
+        android:id="@+id/bucket_item"
+        android:enabled="true"
+        android:icon="@drawable/bucket"
+        android:title="Profile" />
+</menu>
