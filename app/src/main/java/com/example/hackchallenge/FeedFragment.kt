@@ -59,6 +59,8 @@ class FeedFragment : Fragment() {
             )
         )
 
+        Log.d("hello", "w")
+
         val feedAdapter : FeedAdapter = FeedAdapter(feedDataset)
 
         val feedPosts : RecyclerView = view.findViewById(R.id.feed)

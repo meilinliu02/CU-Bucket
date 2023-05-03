@@ -1,6 +1,7 @@
 package com.example.hackchallenge
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,23 +29,23 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_feed, container, false)
-        val bucketList = listOf(BucketItem("See a purple sunset","description1",false),
-              BucketItem("Rock climb @Noyes","description2",false),
-              BucketItem("Scale the clock tower","description3",false),
-              BucketItem("Make ramen in Uris","description4",false),
-              BucketItem("Etc..","description4",false),
-              BucketItem("Etc..","description4",false)
-        )
-
-       bucketAdapter =BucketItemAdapter(bucketList)
-
-        val addPosts : RecyclerView = view.findViewById(R.id.feed)
-
-        addPosts.adapter = bucketAdapter
-
-        val layoutManager = LinearLayoutManager(context)
-        addPosts.layoutManager = layoutManager
+        val view = inflater.inflate(R.layout.fragment_add, container, false)
+//        val bucketList = listOf(BucketItem("See a purple sunset","description1",false),
+//              BucketItem("Rock climb @Noyes","description2",false),
+//              BucketItem("Scale the clock tower","description3",false),
+//              BucketItem("Make ramen in Uris","description4",false),
+//              BucketItem("Etc..","description4",false),
+//              BucketItem("Etc..","description4",false)
+//        )
+//        bucketAdapter =BucketItemAdapter(bucketList)
+//
+//        val addPosts : RecyclerView = view.findViewById(R.id.feed)
+//
+//        addPosts.adapter = bucketAdapter
+//        Log.d("loo","oom")
+//
+//        val layoutManager = LinearLayoutManager(context)
+//        addPosts.layoutManager = layoutManager
 
         // Inflate the layout for this fragment
         return view
