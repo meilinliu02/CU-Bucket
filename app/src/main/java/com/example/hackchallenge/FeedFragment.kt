@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -15,22 +19,40 @@ import androidx.recyclerview.widget.RecyclerView
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+
 /**
  * A simple [Fragment] subclass.
  * Use the [FeedFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+class SharedViewModel : ViewModel() {
+    val newBucketItem = MutableLiveData<BucketItem>()
+
+    fun addBucketItem(bucketItem: BucketItem) {
+        newBucketItem.value = bucketItem
+    }
+}
 class FeedFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var sharedViewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        setFragmentResultListener("requestKey") { requestKey, bundle ->
+//            // We use a String here, but any type that can be put in a Bundle is supported,
+//            // remember that putExtra from intents uses a Bundle underlying, so anything
+//            // you putExtra works here too!
+//            val result = bundle.getString("bundleKey")
+//            // Do something with the result
+//        }
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+//        val bucketFragment = fragmentManager?.findFragmentByTag("BucketFragment") as BucketFragment
+
     }
 
     override fun onCreateView(
@@ -38,6 +60,7 @@ class FeedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_feed, container, false)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
         val feedDataset = listOf(
             FeedPost(
                 author = "Martha",
@@ -59,20 +82,14 @@ class FeedFragment : Fragment() {
             )
         )
 
-        Log.d("hello", "w")
+//        Log.d("hello", "w")
 
-        val feedAdapter : FeedAdapter = FeedAdapter(feedDataset)
-
+        val feedAdapter : FeedAdapter = FeedAdapter(feedDataset,sharedViewModel)
         val feedPosts : RecyclerView = view.findViewById(R.id.feed)
-
         feedPosts.adapter = feedAdapter
-
         val layoutManager = LinearLayoutManager(context)
         feedPosts.layoutManager = layoutManager
-
-
-
-
+//        Log.d("feedfragment", sharedViewModel.newBucketItem.value.toString() )
         // Inflate the layout for this fragment
         return view
     }
@@ -97,3 +114,4 @@ class FeedFragment : Fragment() {
             }
     }
 }
+
