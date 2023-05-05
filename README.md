@@ -1,5 +1,8 @@
 # CU-Bucket
 
-Android Developer: Matthew, Kelsey Liu
-Backend Developer: Alex
-Designer:Bryan
+Android Developer: Matthew Karwan, Kelsey Liu
+Backend Developer: Alex Ho
+Designer: Bryan Wang 
+
+bdw55. ml955, ath58, mtk59
+
