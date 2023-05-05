@@ -1,5 +1,6 @@
 package com.example.hackchallenge
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,27 +8,39 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class BucketItemAdapter(private val items: List<BucketItem>) : RecyclerView.Adapter<BucketItemAdapter.ViewHolder>() {
-
+class BucketItemAdapter(
+    private var items: List<BucketItem>,
+    private val onBucketChecked: (BucketItem, Boolean) -> Unit
+) : RecyclerView.Adapter<BucketItemAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var checkbox:CheckBox=itemView.findViewById(R.id.complete_checkbox)
         val nameTextView: TextView = itemView.findViewById(R.id.name_textview)
 //        val descriptionTextView: TextView = itemView.findViewById(R.id.description_textview)
-        val completeCheckBox: CheckBox = itemView.findViewById(R.id.complete_checkbox)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.bucket_cell, parent, false)
         return ViewHolder(view)
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = items[position]
         holder.nameTextView.text = item.name
-//        holder.descriptionTextView.text = item.description
-        holder.completeCheckBox.isChecked = item.isComplete
+        holder.checkbox.isChecked = item.isComplete
+        holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
+            item.isComplete = isChecked
+            onBucketChecked(item, isChecked)
+        }
     }
+
 
     override fun getItemCount(): Int {
         return items.size
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setItems(filteredList: List<BucketItem>) {
+        items = filteredList // assign the new list to the items variable
+        notifyDataSetChanged()
+    }
+
 }
