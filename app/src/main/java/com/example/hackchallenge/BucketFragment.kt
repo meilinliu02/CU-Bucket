@@ -1,15 +1,18 @@
 package com.example.hackchallenge
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
-
-
     private const val ARG_PARAM1 = "param1"
     private const val ARG_PARAM2 = "param2"
 
@@ -18,41 +21,75 @@ import androidx.recyclerview.widget.RecyclerView
      * Use the [FeedFragment.newInstance] factory method to
      * create an instance of this fragment.
      */
+
     class BucketFragment : Fragment() {
         // TODO: Rename and change types of parameters
         private var param1: String? = null
         private var param2: String? = null
         private lateinit var bucketAdapter: BucketItemAdapter
+        private lateinit var emptybutton:Button
+        private lateinit var fullbutton:Button
+        private lateinit var allbutton:Button
+        private val sharedViewModel: SharedViewModel by activityViewModels()
+        var bucketList = mutableListOf(
+            BucketItem("See a purple sunset", "description1", false),
+            BucketItem("Rock climb @Noyes", "description2", false),
+            BucketItem("Scale the clock tower", "description3", false),
+            BucketItem("Make ramen in Uris", "description4", false),
+            BucketItem("Etc..", "description4", false),
+            BucketItem("Etc..", "description4", false)
+        )
 
+
+        private var filteredList = bucketList
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
+            setFragmentResultListener("newBucketItemRequestKey") { _, bundle ->
+                val newBucketItem = bundle.getParcelable<BucketItem>("newBucketItem")
+            }
             arguments?.let {
                 param1 = it.getString(ARG_PARAM1)
                 param2 = it.getString(ARG_PARAM2)
             }
+//            val result = "result"
+//            setFragmentResult("requestKey",
+//                bundleOf("bundleKey" to result))
         }
-
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
             val view = inflater.inflate(R.layout.fragment_mylist, container, false)
-        val bucketList = listOf(BucketItem("See a purple sunset","description1",false),
-              BucketItem("Rock climb @Noyes","description2",false),
-              BucketItem("Scale the clock tower","description3",false),
-              BucketItem("Make ramen in Uris","description4",false),
-              BucketItem("Etc..","description4",false),
-              BucketItem("Etc..","description4",false)
-        )
-        bucketAdapter =BucketItemAdapter(bucketList)
+            emptybutton=view.findViewById(R.id.emptyBucketButton)
+            fullbutton=view.findViewById(R.id.fullBucketButton)
+            allbutton=view.findViewById(R.id.allBucketButton)
+            bucketAdapter = BucketItemAdapter(filteredList) { item, isChecked ->item.isComplete=isChecked }
+            emptybutton.setOnClickListener {
+                filteredList = bucketList.filter { !it.isComplete } as MutableList<BucketItem>
+                bucketAdapter.setItems(filteredList)
 
-        val addPosts : RecyclerView = view.findViewById(R.id.mylist)
+                
+            }
+            fullbutton.setOnClickListener {
+                filteredList = bucketList.filter { it.isComplete } as MutableList<BucketItem>
+                bucketAdapter.setItems(filteredList)
 
-        addPosts.adapter = bucketAdapter
+            }
+            allbutton.setOnClickListener {
+                bucketAdapter.setItems(bucketList)
 
-        val layoutManager = LinearLayoutManager(context)
-        addPosts.layoutManager = layoutManager
+            }
+            sharedViewModel.newBucketItem.observe ( this , Observer{
+                Log.d("newitem", this.toString() )
+                bucketList.add(it)
+                bucketAdapter.setItems(bucketList)})
 
+
+            Log.d("bucketlist", bucketList.toString() )
+            val addPosts : RecyclerView = view.findViewById(R.id.mylist)
+            val layoutManager = LinearLayoutManager(context)
+            addPosts.layoutManager = layoutManager
+            addPosts.adapter = bucketAdapter
             // Inflate the layout for this fragment
             return view
         }
@@ -69,10 +106,12 @@ import androidx.recyclerview.widget.RecyclerView
             // TODO: Rename and change types and number of parameters
             @JvmStatic
             fun newInstance(param1: String = "", param2: String = "'") =
-                FeedFragment().apply {
+                BucketFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
                     }
                 }
         }}
+
+
